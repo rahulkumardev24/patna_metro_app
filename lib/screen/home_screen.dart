@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:patna_metro/screen/route_planner_screen.dart';
+import 'package:patna_metro/screen/route_find_screen.dart';
 import 'package:patna_metro/screen/station_list_screen.dart';
 import 'package:provider/provider.dart';
 import '../provider/app_state.dart';
@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.blue.withOpacity(0.3),
+            color: Colors.blue.withValues(alpha: 0.3),
             blurRadius: 10,
             offset: Offset(0, 4),
           ),
@@ -149,14 +149,14 @@ class _HomeScreenState extends State<HomeScreen> {
             'Smart, Fast & Convenient Travel',
             style: TextStyle(
               fontSize: 14,
-              color: Colors.white.withOpacity(0.9),
+              color: Colors.white.withValues(alpha: 0.9),
             ),
           ),
           SizedBox(height: 12),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
@@ -199,12 +199,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         _buildQuickActionCard(
-          'Plan Route',
+          'Route Find',
           Icons.directions,
           Color(0xFF00c853),
           () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => RoutePlannerScreen()),
+            MaterialPageRoute(builder: (_) => RouteFindScreen()),
           ),
         ),
         _buildQuickActionCard(
