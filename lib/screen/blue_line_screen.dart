@@ -20,10 +20,22 @@ class _BlueLineScreenState extends State<BlueLineScreen> {
     {"name": "Akashvani", "hindi": "आकाशवाणी", "interchange": false},
     {"name": "Gandhi Maidan", "hindi": "गांधी मैदान", "interchange": false},
     {"name": "PMCH", "hindi": "पीएमसीएच", "interchange": false},
-    {"name": "Patna Science College", "hindi": "पटना साइंस कॉलेज", "interchange": false},
-    {"name": "Moin-ul-Haq Stadium", "hindi": "मोइन-उल-हक स्टेडियम", "interchange": false},
+    {
+      "name": "Patna Science College",
+      "hindi": "पटना साइंस कॉलेज",
+      "interchange": false,
+    },
+    {
+      "name": "Moin-ul-Haq Stadium",
+      "hindi": "मोइन-उल-हक स्टेडियम",
+      "interchange": false,
+    },
     {"name": "Rajendra Nagar", "hindi": "राजेंद्र नगर", "interchange": false},
-    {"name": "Malahi Pakri", "hindi": "मलाही पकड़ी", "interchange": true}, // Interchange with Red Line
+    {
+      "name": "Malahi Pakri",
+      "hindi": "मलाही पकड़ी",
+      "interchange": true,
+    }, // Interchange with Red Line
     {"name": "Khemnichak", "hindi": "खेमनीचक", "interchange": false},
     {"name": "Bhootnath", "hindi": "भूतनाथ", "interchange": false},
     {"name": "Zero Mile", "hindi": "ज़ीरो माइल", "interchange": false},
@@ -33,8 +45,6 @@ class _BlueLineScreenState extends State<BlueLineScreen> {
       "interchange": false,
     },
   ];
-
-
 
   @override
   Widget build(BuildContext context) {

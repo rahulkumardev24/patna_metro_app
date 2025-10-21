@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:patna_metro/screen/parking_place_screen.dart';
 import 'package:patna_metro/screen/route_find_screen.dart';
 import 'package:patna_metro/screen/station_list_screen.dart';
 import 'package:provider/provider.dart';
@@ -223,6 +224,16 @@ class _HomeScreenState extends State<HomeScreen> {
           () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => FareCalculatorScreen()),
+          ),
+        ),
+
+        _buildQuickActionCard(
+          "Parking Place",
+          Icons.currency_rupee,
+          Color(0xFFaa00ff),
+              () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => ParkingPlaceScreen()),
           ),
         ),
       ],
