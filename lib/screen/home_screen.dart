@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:patna_metro/screen/emergency_contacts_screen.dart';
 import 'package:patna_metro/screen/parking_place_screen.dart';
+import 'package:patna_metro/screen/red_line_screen.dart';
 import 'package:patna_metro/screen/route_find_screen.dart';
 import 'package:patna_metro/screen/station_list_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import '../provider/app_state.dart';
+import 'blue_line_screen.dart';
 import 'fare_calculator_screen.dart';
 import 'metro_map_screen.dart';
 
@@ -15,6 +19,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<Map<String, dynamic>> line = [
+    {
+      'image': 'lib/assets/images/red_train.png',
+      "title": "Red line",
+      "subtitle": "East-West Line",
+      "color": Colors.red.shade700,
+      "station": "14",
+    },
+    {
+      'image': 'lib/assets/images/blue_train.png',
+      "title": "Blue line",
+      "subtitle": "North-South Line",
+      "color": Colors.blue.shade700,
+      "station": "12",
+    },
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -71,13 +92,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             )
           : SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Welcome Header
                   _buildWelcomeHeader(),
-                  SizedBox(height: 24),
+                  SizedBox(height: 1.h),
 
                   // Quick Actions Grid
                   Text(
@@ -88,21 +109,76 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.grey[800],
                     ),
                   ),
-                  SizedBox(height: 16),
-                  _buildQuickActionsGrid(),
-                  SizedBox(height: 24),
+                  SizedBox(height: 1.h),
 
-                  // Features Section
-                  Text(
-                    'Features',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[800],
+                  // ---- line ----- ///
+                  SizedBox(
+                    height: 36.w,
+                    child: GridView.builder(
+                      itemCount: 2,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 4 / 3,
+                      ),
+                      itemBuilder: (context, index) {
+                        final myLine = line[index];
+                        return GestureDetector(
+                          onTap: () {
+                            if (myLine['title'] == "Red line") {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => RedLineScreen(),
+                                ),
+                              );
+                            } else if (myLine['title'] == "Blue line") {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => BlueLineScreen(),
+                                ),
+                              );
+                            }
+                          },
+                          child: Card(
+                            color: myLine['color'],
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.asset(
+                                  myLine['image'],
+                                  height: 6.h,
+                                  fit: BoxFit.cover,
+                                ),
+                                SizedBox(height: 1.h),
+
+                                Text(
+                                  myLine['title'],
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+
+                                Text(
+                                  myLine['subtitle'],
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
-                  SizedBox(height: 16),
-                  _buildFeaturesList(),
+
+                  /// --- Quick action ---- ///
+                  _buildQuickActionsGrid(),
+                  SizedBox(height: 1.h),
                 ],
               ),
             ),
@@ -112,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildWelcomeHeader() {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -120,13 +196,6 @@ class _HomeScreenState extends State<HomeScreen> {
           colors: [Color(0xFF1a237e), Color(0xFF3949ab)],
         ),
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.blue.withValues(alpha: 0.3),
-            blurRadius: 10,
-            offset: Offset(0, 4),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,6 +255,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       children: [
         _buildQuickActionCard(
+          'Route Find',
+          Icons.directions,
+          Color(0xFF00c853),
+          () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => RouteFindScreen()),
+          ),
+        ),
+        _buildQuickActionCard(
           'Route Map',
           Icons.map,
           Color(0xFF1a237e),
@@ -199,15 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        _buildQuickActionCard(
-          'Route Find',
-          Icons.directions,
-          Color(0xFF00c853),
-          () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => RouteFindScreen()),
-          ),
-        ),
+
         _buildQuickActionCard(
           'Stations',
           Icons.location_city,
@@ -231,9 +301,18 @@ class _HomeScreenState extends State<HomeScreen> {
           "Parking Place",
           Icons.currency_rupee,
           Color(0xFFaa00ff),
-              () => Navigator.push(
+          () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => ParkingPlaceScreen()),
+          ),
+        ),
+        _buildQuickActionCard(
+          "Emergency Contacts",
+          Icons.currency_rupee,
+          Color(0xFFaa00ff),
+          () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => EmergencyContactsScreen()),
           ),
         ),
       ],
@@ -264,7 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(icon, color: color, size: 24),
@@ -282,107 +361,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildFeaturesList() {
-    return Column(
-      children: [
-        _buildFeatureTile(
-          'Real-time Train Status',
-          'Live train locations and timings',
-          Icons.train,
-          Color(0xFF2196f3),
-          () {
-            // Add live status functionality
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text('Live Status Coming Soon!')));
-          },
-        ),
-        _buildFeatureTile(
-          'Metro Smart Card',
-          'Recharge and check balance',
-          Icons.credit_card,
-          Color(0xFF4caf50),
-          () {
-            // Add smart card functionality
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Smart Card Feature Coming Soon!')),
-            );
-          },
-        ),
-        _buildFeatureTile(
-          'Travel Guide',
-          'Metro etiquette and tips',
-          Icons.travel_explore,
-          Color(0xFFff9800),
-          () {
-            // Add travel guide functionality
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Travel Guide Coming Soon!')),
-            );
-          },
-        ),
-        _buildFeatureTile(
-          'Emergency Contacts',
-          'Important helpline numbers',
-          Icons.emergency,
-          Color(0xFFf44336),
-          () {
-            // Add emergency contacts functionality
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Emergency Contacts Coming Soon!')),
-            );
-          },
-        ),
-      ],
-    );
-  }
-
-  Widget _buildFeatureTile(
-    String title,
-    String subtitle,
-    IconData icon,
-    Color color,
-    VoidCallback onTap,
-  ) {
-    return Card(
-      margin: EdgeInsets.only(bottom: 12),
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: ListTile(
-        leading: Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: color, size: 22),
-        ),
-        title: Text(
-          title,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-            color: Colors.grey[800],
-          ),
-        ),
-        subtitle: Text(
-          subtitle,
-          style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-        ),
-        trailing: Container(
-          padding: EdgeInsets.all(6),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(Icons.arrow_forward_ios, color: color, size: 14),
-        ),
-        onTap: onTap,
-        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     );
   }

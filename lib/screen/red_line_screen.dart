@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:patna_metro/utils/app_color.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:patna_metro/utils/app_constant.dart';
 
 import '../widgets/metro_info_card.dart';
 import '../widgets/search_station.dart';
@@ -14,27 +14,6 @@ class RedLineScreen extends StatefulWidget {
 }
 
 class _RedLineScreenState extends State<RedLineScreen> {
-  final List<Map<String, dynamic>> redLineStations = [
-    {
-      "name": "Danapur Cantonment",
-      "hindi": "दानापुर छावनी",
-      "interchange": false,
-    },
-    {"name": "Saguna More", "hindi": "सगुना मोड़", "interchange": false},
-    {"name": "RPS More", "hindi": "आर पी एस मोड़", "interchange": false},
-    {"name": "Patliputra", "hindi": "पाटलिपुत्र", "interchange": false},
-    {"name": "Rukanpura", "hindi": "रुकनपुरा", "interchange": false},
-    {"name": "Raja Bazar", "hindi": "राजा बाजार", "interchange": false},
-    {"name": "Patna Zoo", "hindi": "पटना चिड़ियाघर", "interchange": false},
-    {"name": "Vikas Bhawan", "hindi": "विकास भवन", "interchange": false},
-    {"name": "Vidyut Bhawan", "hindi": "विद्युत भवन", "interchange": false},
-    {"name": "Patna Junction", "hindi": "पटना जंक्शन", "interchange": true},
-    {"name": "Mithapur", "hindi": "मीठापुर", "interchange": false},
-    {"name": "Ramkrishna Nagar", "hindi": "रामकृष्ण नगर", "interchange": false},
-    {"name": "Jaganpura", "hindi": "जगनपुरा", "interchange": false},
-    {"name": "Khemni Chak", "hindi": "खेमनीचक", "interchange": true},
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,12 +66,12 @@ class _RedLineScreenState extends State<RedLineScreen> {
         // Station List
         Expanded(
           child: ListView.builder(
-            itemCount: redLineStations.length,
+            itemCount: AppConstant.redLineStations.length,
             itemBuilder: (context, index) {
               return StationTile(
-                station: redLineStations[index],
+                station: AppConstant.redLineStations[index],
                 index: index,
-                totalStations: redLineStations.length,
+                totalStations: AppConstant.redLineStations.length,
                 lineColor: Colors.red,
               );
             },
@@ -102,11 +81,10 @@ class _RedLineScreenState extends State<RedLineScreen> {
     );
   }
 
-
   void _searchStations() {
     showSearch(
       context: context,
-      delegate: StationSearchDelegate(redLineStations),
+      delegate: StationSearchDelegate(AppConstant.redLineStations),
     );
   }
 }
