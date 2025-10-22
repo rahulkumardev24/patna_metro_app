@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:patna_metro/screen/parking_place_screen.dart';
+import 'package:patna_metro/screen/red_line_screen.dart';
 import 'package:patna_metro/screen/route_find_screen.dart';
 import 'package:patna_metro/screen/station_list_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import '../provider/app_state.dart';
+import 'blue_line_screen.dart';
 import 'fare_calculator_screen.dart';
 import 'metro_map_screen.dart';
 
@@ -15,6 +18,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<Map<String, dynamic>> line = [
+    {
+      'image': 'lib/assets/images/red_train.png',
+      "title": "Red line",
+      "subtitle": "East-West Line",
+      "color": Colors.red.shade700,
+      "station": "14",
+    },
+    {
+      'image': 'lib/assets/images/blue_train.png',
+      "title": "Blue line",
+      "subtitle": "North-South Line",
+      "color": Colors.blue.shade700,
+      "station": "12",
+    },
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -71,13 +91,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             )
           : SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Welcome Header
                   _buildWelcomeHeader(),
-                  SizedBox(height: 24),
+                  SizedBox(height: 1.h),
 
                   // Quick Actions Grid
                   Text(
@@ -88,9 +108,76 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.grey[800],
                     ),
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: 1.h),
+
+                  // ---- line ----- ///
+                  SizedBox(
+                    height: 36.w,
+                    child: GridView.builder(
+                      itemCount: 2,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 4 / 3,
+                      ),
+                      itemBuilder: (context, index) {
+                        final myLine = line[index];
+                        return GestureDetector(
+                          onTap: () {
+                            if (myLine['title'] == "Red line") {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => RedLineScreen(),
+                                ),
+                              );
+                            } else if (myLine['title'] == "Blue line") {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => BlueLineScreen(),
+                                ),
+                              );
+                            }
+                          },
+                          child: Card(
+                            color: myLine['color'],
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.asset(
+                                  myLine['image'],
+                                  height: 6.h,
+                                  fit: BoxFit.cover,
+                                ),
+                                SizedBox(height: 1.h),
+
+                                Text(
+                                  myLine['title'],
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+
+                                Text(
+                                  myLine['subtitle'],
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+
+                  /// --- Quick action ---- ///
                   _buildQuickActionsGrid(),
-                  SizedBox(height: 24),
+                  SizedBox(height: 1.h),
 
                   // Features Section
                   Text(
@@ -112,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildWelcomeHeader() {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -120,13 +207,6 @@ class _HomeScreenState extends State<HomeScreen> {
           colors: [Color(0xFF1a237e), Color(0xFF3949ab)],
         ),
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.blue.withValues(alpha: 0.3),
-            blurRadius: 10,
-            offset: Offset(0, 4),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -231,7 +311,7 @@ class _HomeScreenState extends State<HomeScreen> {
           "Parking Place",
           Icons.currency_rupee,
           Color(0xFFaa00ff),
-              () => Navigator.push(
+          () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => ParkingPlaceScreen()),
           ),

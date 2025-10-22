@@ -556,19 +556,25 @@ class _ParkingPlaceState extends State<ParkingPlaceScreen> {
       appBar: AppBar(
         title: const Text(
           "Parking Places",
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18 , color: Colors.white),
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+            color: Colors.white,
+          ),
         ),
         backgroundColor: AppColor.primaryColor,
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon( Icons.arrow_back_ios_new_rounded) , color: Colors.white70,),
+          icon: Icon(Icons.arrow_back_ios_new_rounded),
+          color: Colors.white70,
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search_rounded , color: Colors.white70,),
+            icon: const Icon(Icons.search_rounded, color: Colors.white70),
             onPressed: () {
               setState(() {
                 _showSearch = !_showSearch;
@@ -577,7 +583,7 @@ class _ParkingPlaceState extends State<ParkingPlaceScreen> {
             tooltip: 'Search Location',
           ),
           IconButton(
-            icon: const Icon(Icons.my_location , color: Colors.white70,),
+            icon: const Icon(Icons.my_location, color: Colors.white70),
             onPressed: _zoomToCurrentLocation,
             tooltip: 'Current Location',
           ),
