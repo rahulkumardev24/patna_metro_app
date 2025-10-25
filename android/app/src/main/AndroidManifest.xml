@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:label="patna_metro"
+        android:label="Patna Metro"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

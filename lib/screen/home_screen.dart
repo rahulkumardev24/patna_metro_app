@@ -4,6 +4,8 @@ import 'package:patna_metro/screen/parking_place_screen.dart';
 import 'package:patna_metro/screen/red_line_screen.dart';
 import 'package:patna_metro/screen/route_find_screen.dart';
 import 'package:patna_metro/screen/station_list_screen.dart';
+import 'package:patna_metro/utils/app_color.dart';
+import 'package:patna_metro/utils/app_constant.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../provider/app_state.dart';
@@ -58,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Color(0xFF1a237e), // Deep indigo
+        backgroundColor: AppColor.primaryColor,
         elevation: 0,
         centerTitle: true,
         actions: [

@@ -14,6 +14,7 @@ class AppState extends ChangeNotifier {
   AppState(this.stations);
 
   Future<void> toggleLanguage() async {
+
     isHindi = !isHindi;
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();

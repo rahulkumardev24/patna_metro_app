@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:patna_metro/provider/app_state.dart';
 import 'package:patna_metro/screen/home_screen.dart';
+import 'package:patna_metro/screen/splash_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
@@ -32,14 +33,13 @@ class MyApp extends StatelessWidget {
       child: Consumer<AppState>(
         builder: (context, state, _) {
           return ResponsiveSizer(
-            builder: (context , orientation, screenType) {
+            builder: (context, orientation, screenType) {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 title: 'Patna Metro',
                 theme: ThemeData(primarySwatch: Colors.indigo),
-                home: HomeScreen(),
+                home: SplashScreen(),
               );
-
             },
           );
         },
