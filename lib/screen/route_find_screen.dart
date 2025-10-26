@@ -20,7 +20,7 @@ class _RouteFindScreenState extends State<RouteFindScreen> {
 
   final List<String> _interchanges = ["Patna Junction", "Khemni Chak"];
 
-  /// 🛤 Shortest Route Calculation
+  /// Shortest Route Calculation
   List<String> _calculateRoute(String source, String destination) {
     bool sourceInRed = _redLine.any((s) => s['name'] == source);
     bool destInRed = _redLine.any((s) => s['name'] == destination);
@@ -29,51 +29,61 @@ class _RouteFindScreenState extends State<RouteFindScreen> {
 
     List<List<String>> possibleRoutes = [];
 
-    // 🚆 1. Same line Red
+    // 1. Same line Red
     if (sourceInRed && destInRed) {
       int s = _redLine.indexWhere((e) => e['name'] == source);
       int d = _redLine.indexWhere((e) => e['name'] == destination);
-      possibleRoutes.add(
-        (s <= d)
-            ? _redLine
-                  .sublist(s, d + 1)
-                  .map((e) => e['name'] as String)
-                  .toList()
-            : _redLine
-                  .sublist(d, s + 1)
-                  .reversed
-                  .map((e) => e['name'] as String)
-                  .toList(),
-      );
+      if (s != -1 && d != -1) {
+        possibleRoutes.add(
+          (s <= d)
+              ? _redLine
+                    .sublist(s, d + 1)
+                    .map((e) => e['name'] as String)
+                    .toList()
+              : _redLine
+                    .sublist(d, s + 1)
+                    .reversed
+                    .map((e) => e['name'] as String)
+                    .toList(),
+        );
+      }
     }
 
-    // 🚆 2. Same line Blue
+    // 2. Same line Blue
     if (sourceInBlue && destInBlue) {
       int s = _blueLine.indexWhere((e) => e['name'] == source);
       int d = _blueLine.indexWhere((e) => e['name'] == destination);
-      possibleRoutes.add(
-        (s <= d)
-            ? _blueLine
-                  .sublist(s, d + 1)
-                  .map((e) => e['name'] as String)
-                  .toList()
-            : _blueLine
-                  .sublist(d, s + 1)
-                  .reversed
-                  .map((e) => e['name'] as String)
-                  .toList(),
-      );
+      if (s != -1 && d != -1) {
+        possibleRoutes.add(
+          (s <= d)
+              ? _blueLine
+                    .sublist(s, d + 1)
+                    .map((e) => e['name'] as String)
+                    .toList()
+              : _blueLine
+                    .sublist(d, s + 1)
+                    .reversed
+                    .map((e) => e['name'] as String)
+                    .toList(),
+        );
+      }
     }
 
-    // 🚆 3. Different line via each interchange
+    // 3. Different line via each interchange
     for (String interchange in _interchanges) {
+      // Check if interchange exists in both lines
+      bool interchangeInRed = _redLine.any((s) => s['name'] == interchange);
+      bool interchangeInBlue = _blueLine.any((s) => s['name'] == interchange);
+
+      if (!interchangeInRed || !interchangeInBlue) continue;
+
       if ((sourceInRed && destInBlue) || (sourceInBlue && destInRed)) {
         // --- Source to interchange ---
         List<String> part1 = [];
         if (sourceInRed) {
           int s = _redLine.indexWhere((e) => e['name'] == source);
           int i = _redLine.indexWhere((e) => e['name'] == interchange);
-          if (i != -1) {
+          if (s != -1 && i != -1) {
             part1 = (s <= i)
                 ? _redLine
                       .sublist(s, i + 1)
@@ -88,7 +98,7 @@ class _RouteFindScreenState extends State<RouteFindScreen> {
         } else {
           int s = _blueLine.indexWhere((e) => e['name'] == source);
           int i = _blueLine.indexWhere((e) => e['name'] == interchange);
-          if (i != -1) {
+          if (s != -1 && i != -1) {
             part1 = (s <= i)
                 ? _blueLine
                       .sublist(s, i + 1)
@@ -107,7 +117,7 @@ class _RouteFindScreenState extends State<RouteFindScreen> {
         if (destInRed) {
           int d = _redLine.indexWhere((e) => e['name'] == destination);
           int i = _redLine.indexWhere((e) => e['name'] == interchange);
-          if (i != -1) {
+          if (d != -1 && i != -1) {
             part2 = (i <= d)
                 ? _redLine
                       .sublist(i, d + 1)
@@ -122,7 +132,7 @@ class _RouteFindScreenState extends State<RouteFindScreen> {
         } else {
           int d = _blueLine.indexWhere((e) => e['name'] == destination);
           int i = _blueLine.indexWhere((e) => e['name'] == interchange);
-          if (i != -1) {
+          if (d != -1 && i != -1) {
             part2 = (i <= d)
                 ? _blueLine
                       .sublist(i, d + 1)
@@ -421,7 +431,7 @@ class _RouteFindScreenState extends State<RouteFindScreen> {
             Icon(Icons.directions, color: Colors.white, size: 22),
             SizedBox(width: 12),
             Text(
-              'FIND ROUTE',
+              'Find Route',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,

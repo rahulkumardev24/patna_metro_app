@@ -26,28 +26,36 @@ class RouteDetailsScreen extends StatelessWidget {
 
     // Step 1: Precompute each station's line color once
     List<Color> stationColors = [];
-    Color currentLineColor = redLine.contains(route[0]) ? Colors.red : Colors.blue;
+    Color currentLineColor = redLine.contains(route[0])
+        ? Colors.red
+        : Colors.blue;
 
     for (int i = 0; i < totalStations; i++) {
       final stationName = route[i];
-      bool isInterchange = stationName == "Patna Junction" || stationName == "Khemni Chak";
+      bool isInterchange =
+          stationName == "Patna Junction" || stationName == "Khemni Chak";
 
       stationColors.add(currentLineColor);
 
       // Interchange ke baad next color change hoga (next stations ke liye)
       if (isInterchange) {
-        currentLineColor = currentLineColor == Colors.red ? Colors.blue : Colors.red;
+        currentLineColor = currentLineColor == Colors.red
+            ? Colors.blue
+            : Colors.red;
       }
     }
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: (){
-          Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back_ios_new_rounded , color: Colors.white70,)),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white70),
+        ),
         title: Text(
           "${route.first} - ${route.last}",
-          style: const TextStyle(color: Colors.white , fontSize: 16),
+          style: const TextStyle(color: Colors.white, fontSize: 16),
         ),
         backgroundColor: AppColor.primaryColor,
         centerTitle: true,
@@ -64,7 +72,8 @@ class RouteDetailsScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final stationName = route[index];
                   final isInterchange =
-                      stationName == "Patna Junction" || stationName == "Khemni Chak";
+                      stationName == "Patna Junction" ||
+                      stationName == "Khemni Chak";
 
                   final Map<String, dynamic> station = {
                     'name': stationName,
@@ -76,7 +85,8 @@ class RouteDetailsScreen extends StatelessWidget {
                     station: station,
                     index: index,
                     totalStations: totalStations,
-                    lineColor: stationColors[index], // fixed color from precomputed list
+                    lineColor:
+                        stationColors[index], // fixed color from precomputed list
                   );
                 },
               ),
@@ -86,7 +96,6 @@ class RouteDetailsScreen extends StatelessWidget {
       ),
     );
   }
-
 
   String _getHindiName(String english) {
     final Map<String, String> hindiMap = {

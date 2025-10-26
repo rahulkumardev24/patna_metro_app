@@ -267,6 +267,16 @@ class _HomeScreenState extends State<HomeScreen> {
             MaterialPageRoute(builder: (_) => RouteFindScreen()),
           ),
         ),
+
+        _buildQuickActionCard(
+          'Calculate Fare',
+          Icons.currency_rupee,
+          Colors.indigo,
+          () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => FareCalculatorScreen()),
+          ),
+        ),
         _buildQuickActionCard(
           'Route Map',
           Icons.map,
@@ -281,6 +291,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
+        _buildQuickActionCard(
+          "Parking Place",
+          Icons.local_parking_rounded,
+          Colors.grey,
+          () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => ParkingPlaceScreen()),
+          ),
+        ),
 
         _buildQuickActionCard(
           'Stations',
@@ -291,29 +310,11 @@ class _HomeScreenState extends State<HomeScreen> {
             MaterialPageRoute(builder: (_) => StationListScreen()),
           ),
         ),
-        _buildQuickActionCard(
-          'Calculate Fare',
-          Icons.currency_rupee,
-          Color(0xFFaa00ff),
-          () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => FareCalculatorScreen()),
-          ),
-        ),
 
         _buildQuickActionCard(
-          "Parking Place",
-          Icons.currency_rupee,
-          Color(0xFFaa00ff),
-          () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => ParkingPlaceScreen()),
-          ),
-        ),
-        _buildQuickActionCard(
           "Emergency Contacts",
-          Icons.currency_rupee,
-          Color(0xFFaa00ff),
+          Icons.emergency,
+          Colors.red,
           () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => EmergencyContactsScreen()),

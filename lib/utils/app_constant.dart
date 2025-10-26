@@ -19,13 +19,13 @@ class AppConstant {
       "name": "Malahi Pakri",
       "hindi": "मलाही पकड़ी",
       "interchange": true,
-    }, // Interchange with Red Line
-    {"name": "Khemnichak", "hindi": "खेमनीचक", "interchange": false},
+    },
+    {"name": "Khemni Chak", "hindi": "खेमनीचक", "interchange": true}, // CHANGED: "Khemnichak" to "Khemni Chak"
     {"name": "Bhootnath", "hindi": "भूतनाथ", "interchange": false},
     {"name": "Zero Mile", "hindi": "ज़ीरो माइल", "interchange": false},
     {
-      "name": "New ISBT (Patliputra Bus Terminal)",
-      "hindi": "न्यू आईएसबीटी (पाटलिपुत्र बस टर्मिनल)",
+      "name": "New ISBT",
+      "hindi": "न्यू आईएसबीटी",
       "interchange": false,
     },
   ];
