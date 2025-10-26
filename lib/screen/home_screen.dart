@@ -5,7 +5,6 @@ import 'package:patna_metro/screen/red_line_screen.dart';
 import 'package:patna_metro/screen/route_find_screen.dart';
 import 'package:patna_metro/screen/station_list_screen.dart';
 import 'package:patna_metro/utils/app_color.dart';
-import 'package:patna_metro/utils/app_constant.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../provider/app_state.dart';
@@ -50,7 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final state = Provider.of<AppState>(context);
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: Colors.white,
+
+      /// ----- Appbar ----- ///
       appBar: AppBar(
         title: Text(
           'Patna Metro',
@@ -63,14 +64,9 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: AppColor.primaryColor,
         elevation: 0,
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.language, color: Colors.white),
-            onPressed: () => state.toggleLanguage(),
-            tooltip: 'Change Language',
-          ),
-        ],
       ),
+
+      /// ------ body ----- ///
       body: state.isLoading
           ? Center(
               child: Column(
@@ -78,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(
-                      Color(0xFF1a237e),
+                      AppColor.primaryColor,
                     ),
                   ),
                   SizedBox(height: 16),
@@ -102,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   _buildWelcomeHeader(),
                   SizedBox(height: 1.h),
 
-                  // Quick Actions Grid
+                  /// ---- Quick Actions Grid --- ///
                   Text(
                     'Quick Actions',
                     style: TextStyle(
@@ -113,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(height: 1.h),
 
-                  // ---- line ----- ///
+                  /// ---- line ----- ///
                   SizedBox(
                     height: 36.w,
                     child: GridView.builder(
@@ -121,6 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 4 / 3,
+                        crossAxisSpacing: 1.h,
                       ),
                       itemBuilder: (context, index) {
                         final myLine = line[index];
@@ -195,50 +192,55 @@ class _HomeScreenState extends State<HomeScreen> {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF1a237e), Color(0xFF3949ab)],
+          colors: [Colors.yellow.shade700, Colors.yellow],
         ),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(Icons.directions_subway, color: Colors.white, size: 28),
-              SizedBox(width: 12),
-              Text(
-                'Welcome to Patna Metro',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ],
+          Text(
+            'Welcome to Patna Metro',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8),
           Text(
             'Smart, Fast & Convenient Travel',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.white.withValues(alpha: 0.9),
-            ),
+            style: TextStyle(fontSize: 14),
           ),
-          SizedBox(height: 12),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Text(
-              '🚇 ${Provider.of<AppState>(context).stations.length} Stations Active',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
+          SizedBox(height: 2.h),
+
+          /// ------ Info section ---- ///
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildInfoCard(
+                icon: Icons.train_rounded,
+                subTitle: "Metro line",
+                title: "2",
+                iconColor: AppColor.primaryColor,
               ),
-            ),
+
+              _buildInfoCard(
+                title: "25",
+                subTitle: "Station",
+                icon: Icons.location_on_rounded,
+                iconColor: Colors.red,
+              ),
+
+              _buildInfoCard(
+                title: "32 km",
+                subTitle: "Total length",
+                icon: Icons.route_rounded,
+                iconColor: Colors.blue,
+              ),
+
+              _buildInfoCard(
+                title: "2",
+                subTitle: "Interchange",
+                icon: Icons.compare_arrows_rounded,
+                iconColor: Colors.yellow.shade900,
+              ),
+            ],
           ),
         ],
       ),
@@ -328,7 +330,7 @@ class _HomeScreenState extends State<HomeScreen> {
     VoidCallback onTap,
   ) {
     return Card(
-      elevation: 4,
+      elevation: 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: onTap,
@@ -364,6 +366,39 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildInfoCard({
+    required String title,
+    required String subTitle,
+    required IconData icon,
+    required Color iconColor,
+  }) {
+    return Column(
+      children: [
+        /// ----- Icons -------- ///
+        Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Icon(icon, color: iconColor),
+          ),
+        ),
+        SizedBox(height: 0.5.h),
+
+        /// ----- title ----- ///
+        Text(
+          title,
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+
+        /// ---- subtitle ----- ///
+        Text(subTitle, style: TextStyle(fontSize: 12)),
+      ],
     );
   }
 }

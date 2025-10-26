@@ -19,7 +19,6 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    // Animation setup
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -65,9 +64,8 @@ class _SplashScreenState extends State<SplashScreen>
 
               Spacer(),
 
-              // Tagline
               const Text(
-                'Smart Travel • Fast • Safe',
+                'Patna metro smart navigation',
                 style: TextStyle(fontSize: 16),
               ),
 

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart' show ChangeNotifier ;
+import 'package:flutter/cupertino.dart' show ChangeNotifier;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,7 +14,6 @@ class AppState extends ChangeNotifier {
   AppState(this.stations);
 
   Future<void> toggleLanguage() async {
-
     isHindi = !isHindi;
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
@@ -45,5 +44,3 @@ class AppState extends ChangeNotifier {
   Station? getStationById(int id) =>
       stations.firstWhere((s) => s.id == id, orElse: () => stations.first);
 }
-
-

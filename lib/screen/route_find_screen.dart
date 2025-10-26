@@ -202,10 +202,12 @@ class _RouteFindScreenState extends State<RouteFindScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: AppColor.primaryColor,
-        leading: IconButton(onPressed: (){
-          Navigator.pop(context);
-
-        }, icon: Icon(Icons.arrow_back_ios_new_rounded , color: Colors.white70,)),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white70),
+        ),
         title: const Text(
           'Route Finder',
           style: TextStyle(
