@@ -20,7 +20,7 @@ class AppConstant {
       "hindi": "मलाही पकड़ी",
       "interchange": true,
     },
-    {"name": "Khemni Chak", "hindi": "खेमनीचक", "interchange": true}, // CHANGED: "Khemnichak" to "Khemni Chak"
+    {"name": "Khemni Chak", "hindi": "खेमनीचक", "interchange": true},
     {"name": "Bhootnath", "hindi": "भूतनाथ", "interchange": false},
     {"name": "Zero Mile", "hindi": "ज़ीरो माइल", "interchange": false},
     {
