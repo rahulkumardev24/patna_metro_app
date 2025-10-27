@@ -136,13 +136,6 @@ class _StationListScreenState extends State<StationListScreen> {
           ],
         ),
         elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.refresh, color: Colors.white),
-            onPressed: _refreshStations,
-            tooltip: 'Refresh',
-          ),
-        ],
       ),
       body: Column(
         children: [
