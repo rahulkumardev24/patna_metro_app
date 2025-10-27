@@ -5,6 +5,8 @@ import 'package:patna_metro/utils/app_constant.dart';
 import 'package:patna_metro/utils/app_color.dart';
 
 class StationListScreen extends StatefulWidget {
+  const StationListScreen({super.key});
+
   @override
   _StationListScreenState createState() => _StationListScreenState();
 }
@@ -136,13 +138,6 @@ class _StationListScreenState extends State<StationListScreen> {
           ],
         ),
         elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.refresh, color: Colors.white),
-            onPressed: _refreshStations,
-            tooltip: 'Refresh',
-          ),
-        ],
       ),
       body: Column(
         children: [
@@ -451,10 +446,6 @@ class _StationListScreenState extends State<StationListScreen> {
                         _buildChip(station.line, lineColor),
                         SizedBox(width: 8),
                         _buildChip(station.type, Colors.orange),
-                        if (station.type == 'Interchange') ...[
-                          SizedBox(width: 8),
-                          _buildChip('Interchange', Colors.purple),
-                        ],
                       ],
                     ),
                   ],

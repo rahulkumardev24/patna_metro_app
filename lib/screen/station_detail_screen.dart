@@ -5,7 +5,7 @@ import '../models/station.dart';
 
 class StationDetailScreen extends StatelessWidget {
   final Station station;
-  const StationDetailScreen({required this.station});
+  const StationDetailScreen({super.key, required this.station});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
