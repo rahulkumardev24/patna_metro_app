@@ -10,6 +10,7 @@ import 'package:patna_metro/utils/app_text_style.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../provider/app_state.dart';
+import '../widgets/app_drawer.dart';
 import 'blue_line_screen.dart';
 import 'fare_calculator_screen.dart';
 import 'metro_map_screen.dart';
@@ -39,6 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
     },
   ];
 
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -65,7 +68,15 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: AppColor.primaryColor,
         elevation: 0,
         centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            _key.currentState!.openDrawer();
+          },
+          icon: Icon(Icons.menu_rounded, color: Colors.white, size: 22.sp),
+        ),
       ),
+      drawer: AppDrawer(),
+      key: _key,
 
       /// ------ body ----- ///
       body: state.isLoading
@@ -114,6 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 36.w,
                     child: GridView.builder(
                       itemCount: 2,
+                      physics: NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 4 / 3,
@@ -343,7 +355,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(
                 title,
                 style: appTextStyle16(
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w800,
                   fontColor: Colors.grey.shade600,
                 ),
                 textAlign: TextAlign.center,
