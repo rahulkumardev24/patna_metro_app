@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:patna_metro/utils/app_text_style.dart';
 
 class StationSearchDelegate extends SearchDelegate {
   final List<Map<String, dynamic>> stations;
@@ -60,9 +61,8 @@ class StationSearchDelegate extends SearchDelegate {
             backgroundColor: _getStationColor(station, isStart, isEnd),
             child: Text(
               '${stationIndex + 1}',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
+              style: appTextStyle12(
+                fontColor: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
             ),

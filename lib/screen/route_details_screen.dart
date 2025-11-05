@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:patna_metro/utils/app_color.dart';
+import 'package:patna_metro/utils/app_text_style.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class RouteDetailsScreen extends StatelessWidget {
@@ -55,7 +56,7 @@ class RouteDetailsScreen extends StatelessWidget {
         ),
         title: Text(
           "${route.first} - ${route.last}",
-          style: const TextStyle(color: Colors.white, fontSize: 16),
+          style: appTextStyle16(fontColor: Colors.white),
         ),
         backgroundColor: AppColor.primaryColor,
         centerTitle: true,
@@ -85,8 +86,7 @@ class RouteDetailsScreen extends StatelessWidget {
                     station: station,
                     index: index,
                     totalStations: totalStations,
-                    lineColor:
-                        stationColors[index], // fixed color from precomputed list
+                    lineColor: stationColors[index],
                   );
                 },
               ),
@@ -149,13 +149,12 @@ class RouteDetailsScreen extends StatelessWidget {
     return Column(
       children: [
         Icon(icon, color: Colors.teal),
-        Text(title, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+        Text(title, style: appTextStyle12(fontColor: Colors.grey)),
         Text(
           value,
-          style: const TextStyle(
-            fontSize: 16,
+          style: appTextStyle16(
             fontWeight: FontWeight.bold,
-            color: Colors.teal,
+            fontColor: Colors.teal,
           ),
         ),
       ],
@@ -234,18 +233,14 @@ class StationTile extends StatelessWidget {
                 children: [
                   Text(
                     station['name'],
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: appTextStyle16(fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     station['hindi'] ?? '',
-                    style: const TextStyle(
-                      fontSize: 15,
+                    style: appTextStyle15(
                       fontWeight: FontWeight.w500,
-                      color: Colors.black87,
+                      fontColor: Colors.black87,
                     ),
                   ),
                   if (isInterchange)
@@ -262,9 +257,8 @@ class StationTile extends StatelessWidget {
                           const SizedBox(width: 4),
                           Text(
                             'Interchange Station',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.orange[700],
+                            style: appTextStyle12(
+                              fontColor: Colors.orange.shade700,
                               fontWeight: FontWeight.w500,
                             ),
                           ),

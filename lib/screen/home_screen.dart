@@ -5,6 +5,8 @@ import 'package:patna_metro/screen/red_line_screen.dart';
 import 'package:patna_metro/screen/route_find_screen.dart';
 import 'package:patna_metro/screen/station_list_screen.dart';
 import 'package:patna_metro/utils/app_color.dart';
+import 'package:patna_metro/utils/app_constant.dart';
+import 'package:patna_metro/utils/app_text_style.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../provider/app_state.dart';
@@ -55,10 +57,9 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(
           'Patna Metro',
-          style: TextStyle(
+          style: appTextStyle22(
             fontWeight: FontWeight.bold,
-            fontSize: 22,
-            color: Colors.white,
+            fontColor: Colors.white,
           ),
         ),
         backgroundColor: AppColor.primaryColor,
@@ -90,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             )
           : SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -101,10 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   /// ---- Quick Actions Grid --- ///
                   Text(
                     'Quick Actions',
-                    style: TextStyle(
-                      fontSize: 20,
+                    style: appTextStyle20(
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey[800],
+                      fontColor: Colors.grey.shade600,
                     ),
                   ),
                   SizedBox(height: 1.h),
@@ -154,17 +154,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                 Text(
                                   myLine['title'],
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white,
+                                  style: appTextStyle18(
+                                    fontColor: Colors.white,
                                   ),
                                 ),
 
                                 Text(
                                   myLine['subtitle'],
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white70,
+                                  style: appTextStyle15(
+                                    fontColor: Colors.white70,
                                   ),
                                 ),
                               ],
@@ -201,11 +199,11 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Text(
             'Welcome to Patna Metro',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: appTextStyle20(fontWeight: FontWeight.bold),
           ),
           Text(
             'Smart, Fast & Convenient Travel',
-            style: TextStyle(fontSize: 14),
+            style: appTextStyle16(fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 2.h),
 
@@ -255,33 +253,29 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisCount: 2,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
-        childAspectRatio: 1.2,
       ),
       children: [
         _buildQuickActionCard(
-          'Route Find',
-          Icons.directions,
-          Color(0xFF00c853),
-          () => Navigator.push(
+          title: 'Route Find',
+          imagePath: AppConstant.route,
+          onTap: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => RouteFindScreen()),
           ),
         ),
 
         _buildQuickActionCard(
-          'Calculate Fare',
-          Icons.currency_rupee,
-          Colors.indigo,
-          () => Navigator.push(
+          title: 'Calculate Fare',
+          imagePath: AppConstant.rupees,
+          onTap: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => FareCalculatorScreen()),
           ),
         ),
         _buildQuickActionCard(
-          'Route Map',
-          Icons.map,
-          Color(0xFF1a237e),
-          () => Navigator.push(
+          title: 'Route Map',
+          imagePath: AppConstant.routeMap,
+          onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
               builder: (_) => MetroMapScreen(
@@ -292,30 +286,27 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         _buildQuickActionCard(
-          "Parking Place",
-          Icons.local_parking_rounded,
-          Colors.grey,
-          () => Navigator.push(
+          title: "Parking Place",
+          imagePath: AppConstant.parking,
+          onTap: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => ParkingPlaceScreen()),
           ),
         ),
 
         _buildQuickActionCard(
-          'Stations',
-          Icons.location_city,
-          Color(0xFFff6d00),
-          () => Navigator.push(
+          title: 'Stations',
+          imagePath: AppConstant.station,
+          onTap: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => StationListScreen()),
           ),
         ),
 
         _buildQuickActionCard(
-          "Emergency Contacts",
-          Icons.emergency,
-          Colors.red,
-          () => Navigator.push(
+          title: "Emergency Contacts",
+          imagePath: AppConstant.emergency,
+          onTap: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => EmergencyContactsScreen()),
           ),
@@ -324,12 +315,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildQuickActionCard(
-    String title,
-    IconData icon,
-    Color color,
-    VoidCallback onTap,
-  ) {
+  Widget _buildQuickActionCard({
+    required String title,
+    required String imagePath,
+    required VoidCallback onTap,
+  }) {
     return Card(
       elevation: 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -346,20 +336,15 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: color.withValues(alpha: 0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(icon, color: color, size: 24),
+                decoration: BoxDecoration(shape: BoxShape.circle),
+                child: Image.asset(imagePath, height: 15.w, fit: BoxFit.cover),
               ),
               SizedBox(height: 8),
               Text(
                 title,
-                style: TextStyle(
-                  fontSize: 14,
+                style: appTextStyle16(
                   fontWeight: FontWeight.w600,
-                  color: Colors.grey[800],
+                  fontColor: Colors.grey.shade600,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -392,13 +377,10 @@ class _HomeScreenState extends State<HomeScreen> {
         SizedBox(height: 0.5.h),
 
         /// ----- title ----- ///
-        Text(
-          title,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
+        Text(title, style: appTextStyle18(fontWeight: FontWeight.w900)),
 
         /// ---- subtitle ----- ///
-        Text(subTitle, style: TextStyle(fontSize: 12)),
+        Text(subTitle, style: appTextStyle15()),
       ],
     );
   }

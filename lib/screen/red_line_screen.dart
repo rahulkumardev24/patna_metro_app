@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:patna_metro/utils/app_color.dart';
 import 'package:patna_metro/utils/app_constant.dart';
+import 'package:patna_metro/utils/app_text_style.dart';
 
 import '../widgets/metro_info_card.dart';
 import '../widgets/search_station.dart';
@@ -30,12 +31,11 @@ class _RedLineScreenState extends State<RedLineScreen> {
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+           Text(
             'Red Line',
-            style: TextStyle(
-              fontSize: 18,
+            style: appTextStyle18(
               fontWeight: FontWeight.w600,
-              color: Colors.white,
+              fontColor: Colors.white,
             ),
           ),
         ],

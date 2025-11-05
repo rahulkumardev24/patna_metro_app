@@ -3,6 +3,7 @@ import 'package:patna_metro/models/station.dart';
 import 'package:patna_metro/screen/station_detail_screen.dart';
 import 'package:patna_metro/utils/app_constant.dart';
 import 'package:patna_metro/utils/app_color.dart';
+import 'package:patna_metro/utils/app_text_style.dart';
 
 class StationListScreen extends StatefulWidget {
   const StationListScreen({super.key});
@@ -22,47 +23,41 @@ class _StationListScreenState extends State<StationListScreen> {
     final allStations = <Station>[];
     int idCounter = 1;
 
-    // Add Red Line stations
+    /// Add Red Line stations
     for (final station in AppConstant.redLineStations) {
-      allStations.add(Station(
-        id: idCounter++,
-        name: station['name'] as String,
-        code: _generateStationCode(station['name'] as String),
-        type: station['interchange'] ? 'Interchange' : 'Regular',
-        line: 'Red Line',
-        lat: null,
-        lng: null,
-        amenities: _getDefaultAmenities(station['interchange'] as bool),
-        opening: '2024',
-      ));
+      allStations.add(
+        Station(
+          id: idCounter++,
+          name: station['name'] as String,
+          code: _generateStationCode(station['name'] as String),
+          type: station['interchange'] ? 'Interchange' : 'Regular',
+          line: 'Red Line',
+          lat: null,
+          lng: null,
+          opening: '2024',
+        ),
+      );
     }
 
     // Add Blue Line stations (avoid duplicates for interchange stations)
     for (final station in AppConstant.blueLineStations) {
       if (!allStations.any((s) => s.name == station['name'])) {
-        allStations.add(Station(
-          id: idCounter++,
-          name: station['name'] as String,
-          code: _generateStationCode(station['name'] as String),
-          type: station['interchange'] ? 'Interchange' : 'Regular',
-          line: 'Blue Line',
-          lat: null,
-          lng: null,
-          amenities: _getDefaultAmenities(station['interchange'] as bool),
-          opening: '2024',
-        ));
+        allStations.add(
+          Station(
+            id: idCounter++,
+            name: station['name'] as String,
+            code: _generateStationCode(station['name'] as String),
+            type: station['interchange'] ? 'Interchange' : 'Regular',
+            line: 'Blue Line',
+            lat: null,
+            lng: null,
+            opening: '2024',
+          ),
+        );
       }
     }
 
     return allStations;
-  }
-
-  List<String> _getDefaultAmenities(bool isInterchange) {
-    final basicAmenities = ['Ticket Counter', 'Security', 'Restrooms'];
-    if (isInterchange) {
-      return [...basicAmenities, 'Food Court', 'Shopping', 'ATM'];
-    }
-    return basicAmenities;
   }
 
   String _generateStationCode(String stationName) {
@@ -85,18 +80,6 @@ class _StationListScreenState extends State<StationListScreen> {
     super.dispose();
   }
 
-  Future<void> _refreshStations() async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    await Future.delayed(Duration(seconds: 1));
-
-    setState(() {
-      _isLoading = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // Filter stations based on selections
@@ -107,8 +90,8 @@ class _StationListScreenState extends State<StationListScreen> {
           _selectedType == 'All' || station.type == _selectedType;
       final matchesSearch =
           _searchQuery.isEmpty ||
-              station.name.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-              station.code.toLowerCase().contains(_searchQuery.toLowerCase());
+          station.name.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+          station.code.toLowerCase().contains(_searchQuery.toLowerCase());
       return matchesLine && matchesType && matchesSearch;
     }).toList();
 
@@ -118,6 +101,8 @@ class _StationListScreenState extends State<StationListScreen> {
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
+
+      /// ---- App bar ---- ///
       appBar: AppBar(
         backgroundColor: AppColor.primaryColor,
         title: Column(
@@ -125,33 +110,28 @@ class _StationListScreenState extends State<StationListScreen> {
           children: [
             Text(
               'Patna Metro Stations',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
+              style: appTextStyle18(
+                fontColor: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),
             Text(
               '${filteredStations.length} stations found',
-              style: TextStyle(color: Colors.white70, fontSize: 12),
+              style: appTextStyle12(fontColor: Colors.white70),
             ),
           ],
         ),
         elevation: 0,
       ),
+
+      /// --------- Body ------- ///
       body: Column(
         children: [
           // Search and Filter Section
           _buildSearchFilterSection(lines, types),
 
           // Stations List
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: _refreshStations,
-              color: AppColor.primaryColor,
-              child: _buildStationsList(filteredStations),
-            ),
-          ),
+          Expanded(child: _buildStationsList(filteredStations)),
         ],
       ),
     );
@@ -187,14 +167,14 @@ class _StationListScreenState extends State<StationListScreen> {
                 ),
                 suffixIcon: _searchQuery.isNotEmpty
                     ? IconButton(
-                  icon: Icon(Icons.clear, color: Colors.grey[600]),
-                  onPressed: () {
-                    setState(() {
-                      _searchQuery = '';
-                      _searchController.clear();
-                    });
-                  },
-                )
+                        icon: Icon(Icons.clear, color: Colors.grey[600]),
+                        onPressed: () {
+                          setState(() {
+                            _searchQuery = '';
+                            _searchController.clear();
+                          });
+                        },
+                      )
                     : null,
               ),
               onChanged: (value) {
@@ -276,7 +256,7 @@ class _StationListScreenState extends State<StationListScreen> {
                     Expanded(
                       child: Text(
                         item,
-                        style: TextStyle(fontSize: 14),
+                        style: appTextStyle14(),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -346,10 +326,9 @@ class _StationListScreenState extends State<StationListScreen> {
         Text(
           'No Stations Found',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 18,
+          style: appTextStyle18(
             fontWeight: FontWeight.w600,
-            color: Colors.grey[600],
+            fontColor: Colors.grey.shade600,
           ),
         ),
         SizedBox(height: 8),
@@ -358,7 +337,7 @@ class _StationListScreenState extends State<StationListScreen> {
           child: Text(
             'Try adjusting your search or filters',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, color: Colors.grey[500]),
+            style: appTextStyle14(fontColor: Colors.grey.shade500),
           ),
         ),
       ],
@@ -389,19 +368,18 @@ class _StationListScreenState extends State<StationListScreen> {
                 width: 50,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: lineColor.withOpacity(0.1),
+                  color: lineColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: lineColor.withOpacity(0.3)),
+                  border: Border.all(color: lineColor.withValues(alpha: 0.3)),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       station.code,
-                      style: TextStyle(
-                        fontSize: 12,
+                      style: appTextStyle12(
                         fontWeight: FontWeight.bold,
-                        color: lineColor,
+                        fontColor: lineColor,
                       ),
                     ),
                     SizedBox(height: 2),
@@ -426,33 +404,29 @@ class _StationListScreenState extends State<StationListScreen> {
                   children: [
                     Text(
                       station.name,
-                      style: TextStyle(
-                        fontSize: 16,
+                      style: appTextStyle16(
                         fontWeight: FontWeight.w600,
-                        color: Colors.grey[800],
+                        fontColor: Colors.grey.shade800,
                       ),
                     ),
                     SizedBox(height: 4),
-                    Text(
-                      '${station.amenities.length} amenities',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                    SizedBox(height: 6),
                     Row(
                       children: [
+                        /// Line
                         _buildChip(station.line, lineColor),
                         SizedBox(width: 8),
-                        _buildChip(station.type, Colors.orange),
+
+                        /// Interchange
+                        station.type == 'Interchange'
+                            ? _buildChip(station.type, Colors.orange)
+                            : SizedBox(),
                       ],
                     ),
                   ],
                 ),
               ),
 
-              // Navigation Icon
+              /// Navigation Icon
               Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey[400]),
             ],
           ),
@@ -465,17 +439,13 @@ class _StationListScreenState extends State<StationListScreen> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Text(
         text,
-        style: TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w500,
-          color: color,
-        ),
+        style: appTextStyle11(fontWeight: FontWeight.w500, fontColor: color),
       ),
     );
   }

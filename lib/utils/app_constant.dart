@@ -1,4 +1,15 @@
 class AppConstant {
+  /// image Path
+  static final splashLogo = 'lib/assets/images/logo.png';
+  static final route = 'lib/assets/images/route.png';
+  static final parking = 'lib/assets/images/parking-lot.png';
+  static final routeMap = 'lib/assets/images/3d-map.png';
+  static final emergency = 'lib/assets/images/emergency-call.png';
+  static final station = 'lib/assets/images/train-station.png';
+  static final rupees =  "lib/assets/images/rupee.png" ;
+
+
+
   static final List<Map<String, dynamic>> blueLineStations = [
     {"name": "Patna Junction", "hindi": "पटना जंक्शन", "interchange": true},
     {"name": "Akashvani", "hindi": "आकाशवाणी", "interchange": false},
@@ -15,19 +26,11 @@ class AppConstant {
       "interchange": false,
     },
     {"name": "Rajendra Nagar", "hindi": "राजेंद्र नगर", "interchange": false},
-    {
-      "name": "Malahi Pakri",
-      "hindi": "मलाही पकड़ी",
-      "interchange": true,
-    },
+    {"name": "Malahi Pakri", "hindi": "मलाही पकड़ी", "interchange": true},
     {"name": "Khemni Chak", "hindi": "खेमनीचक", "interchange": true},
     {"name": "Bhootnath", "hindi": "भूतनाथ", "interchange": false},
     {"name": "Zero Mile", "hindi": "ज़ीरो माइल", "interchange": false},
-    {
-      "name": "New ISBT",
-      "hindi": "न्यू आईएसबीटी",
-      "interchange": false,
-    },
+    {"name": "New ISBT", "hindi": "न्यू आईएसबीटी", "interchange": false},
   ];
 
   static final List<Map<String, dynamic>> redLineStations = [

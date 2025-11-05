@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../main.dart';
+import 'package:patna_metro/utils/app_text_style.dart';
 import '../models/station.dart';
 
 class StationDetailScreen extends StatelessWidget {
@@ -17,7 +16,7 @@ class StationDetailScreen extends StatelessWidget {
           children: [
             Text(
               'Code: ${station.code}',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: appTextStyle16(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
             Text('Line: ${station.line}'),
@@ -27,12 +26,6 @@ class StationDetailScreen extends StatelessWidget {
             Text('Opening: ${station.opening}'),
             SizedBox(height: 12),
             Text('Amenities:', style: TextStyle(fontWeight: FontWeight.bold)),
-            ...station.amenities.map(
-                  (a) => Padding(
-                padding: EdgeInsets.symmetric(vertical: 4),
-                child: Text('• $a'),
-              ),
-            ),
           ],
         ),
       ),

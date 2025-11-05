@@ -6,7 +6,6 @@ class Station {
   final String line;
   final double? lat;
   final double? lng;
-  final List<String> amenities;
   final String opening;
 
   Station({
@@ -17,7 +16,6 @@ class Station {
     required this.line,
     this.lat,
     this.lng,
-    required this.amenities,
     required this.opening,
   });
 
@@ -30,8 +28,6 @@ class Station {
       line: j['line'] ?? '',
       lat: j['lat'] == null ? null : (j['lat'] as num).toDouble(),
       lng: j['lng'] == null ? null : (j['lng'] as num).toDouble(),
-      amenities:
-      (j['amenities'] as List?)?.map((e) => e.toString()).toList() ?? [],
       opening: j['opening'] ?? '',
     );
   }

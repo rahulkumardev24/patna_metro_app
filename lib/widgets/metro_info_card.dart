@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:patna_metro/utils/app_text_style.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MetroInfoCard extends StatelessWidget {
@@ -45,10 +46,9 @@ class MetroInfoCard extends StatelessWidget {
             child: Center(
               child: Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 16,
+                style: appTextStyle16(
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  fontColor: Colors.white,
                 ),
               ),
             ),
@@ -75,18 +75,13 @@ class MetroInfoCard extends StatelessWidget {
       children: [
         Text(
           value,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
+          style: appTextStyle18(fontWeight: FontWeight.bold, fontColor: color),
         ),
         const SizedBox(height: 4),
         Text(
           label,
-          style: TextStyle(
-            fontSize: 10,
-            color: Colors.grey[600],
+          style: appTextStyle11(
+            fontColor: Colors.grey.shade600,
             fontWeight: FontWeight.w500,
           ),
         ),

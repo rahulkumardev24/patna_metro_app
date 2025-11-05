@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:patna_metro/utils/app_text_style.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class StationTile extends StatelessWidget {
@@ -81,10 +82,7 @@ class StationTile extends StatelessWidget {
                       Expanded(
                         child: Text(
                           station['name'],
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
+                          style: appTextStyle16(fontWeight: FontWeight.w600),
                         ),
                       ),
                       if (isStart || isEnd)
@@ -104,10 +102,9 @@ class StationTile extends StatelessWidget {
                           ),
                           child: Text(
                             isStart ? 'START' : 'END',
-                            style: TextStyle(
-                              fontSize: 10,
+                            style: appTextStyle11(
                               fontWeight: FontWeight.w600,
-                              color: isStart
+                              fontColor: isStart
                                   ? Colors.green[700]!
                                   : Colors.blue[700]!,
                             ),
@@ -118,10 +115,9 @@ class StationTile extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     station['hindi'] ?? '',
-                    style: const TextStyle(
-                      fontSize: 15,
+                    style: appTextStyle16(
                       fontWeight: FontWeight.w500,
-                      color: Colors.black87,
+                      fontColor: Colors.black87,
                     ),
                   ),
 
@@ -148,10 +144,9 @@ class StationTile extends StatelessWidget {
                           const SizedBox(width: 4),
                           Text(
                             'Interchange Station',
-                            style: TextStyle(
-                              fontSize: 10,
+                            style: appTextStyle11(
                               fontWeight: FontWeight.w500,
-                              color: Colors.orange[700],
+                              fontColor: Colors.orange.shade700,
                             ),
                           ),
                         ],

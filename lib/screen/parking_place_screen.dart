@@ -8,6 +8,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../utils/app_text_style.dart';
 import '../widgets/parking_details_sheet.dart';
 
 class ParkingPlaceScreen extends StatefulWidget {
@@ -554,12 +555,11 @@ class _ParkingPlaceState extends State<ParkingPlaceScreen> {
 
       // App bar
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Parking Places",
-          style: TextStyle(
+          style: appTextStyle18(
             fontWeight: FontWeight.w600,
-            fontSize: 18,
-            color: Colors.white,
+            fontColor: Colors.white,
           ),
         ),
         backgroundColor: AppColor.primaryColor,
@@ -662,9 +662,8 @@ class _ParkingPlaceState extends State<ParkingPlaceScreen> {
                 if (_isSearching)
                   Text(
                     'Search Results',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.blue[600],
+                    style: appTextStyle14(
+                      fontColor: Colors.blue.shade600,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -680,7 +679,7 @@ class _ParkingPlaceState extends State<ParkingPlaceScreen> {
 
   Widget _buildContent() {
     if (isLoading) {
-      return const Center(
+      return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -691,7 +690,7 @@ class _ParkingPlaceState extends State<ParkingPlaceScreen> {
             SizedBox(height: 16),
             Text(
               'Finding parking places in Patna...',
-              style: TextStyle(color: Colors.grey, fontSize: 14),
+              style: appTextStyle15(fontColor: Colors.grey),
             ),
           ],
         ),
@@ -734,16 +733,15 @@ class _ParkingPlaceState extends State<ParkingPlaceScreen> {
             const SizedBox(height: 16),
             Text(
               'No parking places found',
-              style: TextStyle(
-                color: Colors.grey[600],
-                fontSize: 16,
+              style: appTextStyle16(
+                fontColor: Colors.grey.shade600,
                 fontWeight: FontWeight.w500,
               ),
             ),
             const SizedBox(height: 8),
             Text(
               'Try searching with different keywords',
-              style: TextStyle(color: Colors.grey[500], fontSize: 14),
+              style: appTextStyle15(fontColor: Colors.grey.shade500),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
@@ -814,10 +812,9 @@ class _ParkingPlaceState extends State<ParkingPlaceScreen> {
                   children: [
                     Text(
                       place['name'] ?? 'Unknown Parking',
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style: appTextStyle16(
                         fontWeight: FontWeight.w600,
-                        color: Colors.black87,
+                        fontColor: Colors.black87,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -830,9 +827,8 @@ class _ParkingPlaceState extends State<ParkingPlaceScreen> {
                         Expanded(
                           child: Text(
                             place['vicinity'] ?? 'No address available',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[600],
+                            style: appTextStyle12(
+                              fontColor: Colors.grey.shade600,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -883,10 +879,9 @@ class _ParkingPlaceState extends State<ParkingPlaceScreen> {
                           ),
                           child: Text(
                             isOpen ? 'OPEN' : 'CLOSED',
-                            style: TextStyle(
-                              fontSize: 10,
+                            style: appTextStyle12(
                               fontWeight: FontWeight.bold,
-                              color: isOpen ? Colors.green : Colors.red,
+                              fontColor: isOpen ? Colors.green : Colors.red,
                             ),
                           ),
                         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:patna_metro/utils/app_color.dart';
 import 'package:patna_metro/utils/app_constant.dart';
+import 'package:patna_metro/utils/app_text_style.dart';
 import '../widgets/metro_info_card.dart';
 import '../widgets/search_station.dart';
 import '../widgets/station_tile.dart';
@@ -28,10 +29,9 @@ class _BlueLineScreenState extends State<BlueLineScreen> {
     return AppBar(
       title: Text(
         'Blue Line',
-        style: TextStyle(
-          fontSize: 18,
+        style: appTextStyle18(
           fontWeight: FontWeight.w600,
-          color: Colors.white,
+          fontColor: Colors.white,
         ),
       ),
       backgroundColor: AppColor.primaryColor,

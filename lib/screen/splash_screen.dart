@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:patna_metro/screen/home_screen.dart';
+import 'package:patna_metro/utils/app_constant.dart';
+import 'package:patna_metro/utils/app_text_style.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -55,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen>
               ClipRRect(
                 borderRadius: BorderRadiusGeometry.circular(100),
                 child: Image.asset(
-                  'lib/assets/images/logo.png',
+                  AppConstant.splashLogo,
                   height: 50.w,
                   fit: BoxFit.cover,
                 ),
@@ -64,10 +66,7 @@ class _SplashScreenState extends State<SplashScreen>
 
               Spacer(),
 
-              const Text(
-                'Patna metro smart navigation',
-                style: TextStyle(fontSize: 16),
-              ),
+              Text('Patna metro smart navigation', style: appTextStyle16(fontWeight: FontWeight.w600)),
 
               SizedBox(height: 5.h),
             ],

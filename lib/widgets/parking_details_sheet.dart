@@ -2,9 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:patna_metro/utils/app_text_style.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
-import '../utils/app_color.dart';
 
 class ParkingDetailsSheet extends StatelessWidget {
   final Map<String, dynamic> place;
@@ -65,10 +64,7 @@ class ParkingDetailsSheet extends StatelessWidget {
                   children: [
                     Text(
                       place['name'] ?? 'Unknown Parking',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: appTextStyle18(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 4),
                     Container(
@@ -84,10 +80,9 @@ class ParkingDetailsSheet extends StatelessWidget {
                       ),
                       child: Text(
                         isOpen ? 'Currently Open' : 'Currently Closed',
-                        style: TextStyle(
-                          color: isOpen ? Colors.green : Colors.red,
+                        style: appTextStyle12(
+                          fontColor: isOpen ? Colors.green : Colors.red,
                           fontWeight: FontWeight.w600,
-                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -118,10 +113,10 @@ class ParkingDetailsSheet extends StatelessWidget {
 
           // Address
           _buildDetailItem(
-           icon:  Icons.location_on,
-           title: 'Address',
-           color: Colors.red,
-           subtitle: place['vicinity'] ?? 'No address available',
+            icon: Icons.location_on,
+            title: 'Address',
+            color: Colors.red,
+            subtitle: place['vicinity'] ?? 'No address available',
           ),
           const SizedBox(height: 16),
 
@@ -130,10 +125,10 @@ class ParkingDetailsSheet extends StatelessWidget {
             Column(
               children: [
                 _buildDetailItem(
-                icon:Icons.place,
-                 color: Colors.blue,
-                 title: 'Distance from you',
-                 subtitle:   '${distance.toStringAsFixed(1)} kilometers',
+                  icon: Icons.place,
+                  color: Colors.blue,
+                  title: 'Distance from you',
+                  subtitle: '${distance.toStringAsFixed(1)} kilometers',
                 ),
                 const SizedBox(height: 16),
               ],
@@ -144,10 +139,10 @@ class ParkingDetailsSheet extends StatelessWidget {
             Column(
               children: [
                 _buildDetailItem(
-                 icon:  Icons.star,
-                 title: 'Rating',
-                 color: Colors.orange,
-                 subtitle:  '$rating (${userRatingsTotal} reviews)',
+                  icon: Icons.star,
+                  title: 'Rating',
+                  color: Colors.orange,
+                  subtitle: '$rating ($userRatingsTotal reviews)',
                 ),
                 const SizedBox(height: 16),
               ],
@@ -164,11 +159,14 @@ class ParkingDetailsSheet extends StatelessWidget {
                 );
                 Navigator.pop(context);
               },
-              icon: const Icon(Icons.directions, size: 21 , color: Colors.white,),
-              label: const Text('Get Directions',style: TextStyle(color: Colors.white),),
+              icon: const Icon(Icons.directions, size: 21, color: Colors.white),
+              label: Text(
+                'Get Directions',
+                style: appTextStyle16(fontColor: Colors.white),
+              ),
               style: OutlinedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 12),
-                backgroundColor: Colors.blueAccent
+                backgroundColor: Colors.blueAccent,
               ),
             ),
           ),
@@ -177,7 +175,12 @@ class ParkingDetailsSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailItem({required IconData icon, required String title, required String subtitle , required Color color}) {
+  Widget _buildDetailItem({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required Color color,
+  }) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -189,17 +192,13 @@ class ParkingDetailsSheet extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: color,
+                style: appTextStyle12(
+                  fontColor: color,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               const SizedBox(height: 2),
-              Text(
-                subtitle,
-                style: const TextStyle(fontSize: 14, color: Colors.black87),
-              ),
+              Text(subtitle, style: appTextStyle15(fontColor: Colors.black87)),
             ],
           ),
         ),
@@ -214,9 +213,8 @@ class ParkingDetailsSheet extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           text,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey[700],
+          style: appTextStyle12(
+            fontColor: Colors.grey.shade700,
             fontWeight: FontWeight.w500,
           ),
           textAlign: TextAlign.center,
@@ -231,7 +229,7 @@ class ParkingDetailsSheet extends StatelessWidget {
     double endLat,
     double endLng,
   ) {
-    const double earthRadius = 6371; // kilometers
+    const double earthRadius = 6371;
 
     double dLat = _toRadians(endLat - startLat);
     double dLng = _toRadians(endLng - startLng);

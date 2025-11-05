@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:patna_metro/utils/app_constant.dart';
+import 'package:patna_metro/utils/app_text_style.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../utils/app_color.dart';
 
@@ -280,7 +282,7 @@ class _FareCalculatorScreenState extends State<FareCalculatorScreen> {
                   SizedBox(width: 8),
                   Text(
                     'FROM STATION',
-                    style: TextStyle(
+                    style: GoogleFonts.nunito(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
                       color: Colors.grey[600],
@@ -301,10 +303,7 @@ class _FareCalculatorScreenState extends State<FareCalculatorScreen> {
                     value: station,
                     child: Text(
                       station,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: appTextStyle16(fontWeight: FontWeight.w500),
                     ),
                   );
                 }).toList(),
@@ -369,7 +368,7 @@ class _FareCalculatorScreenState extends State<FareCalculatorScreen> {
                   SizedBox(width: 8),
                   Text(
                     'TO STATION',
-                    style: TextStyle(
+                    style: GoogleFonts.nunito(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
                       color: Colors.grey[600],
@@ -383,17 +382,14 @@ class _FareCalculatorScreenState extends State<FareCalculatorScreen> {
                 initialValue: _selectedDestination,
                 hint: Text(
                   'Select destination station',
-                  style: TextStyle(color: Colors.grey[500]),
+                  style: appTextStyle14(fontColor: Colors.grey.shade500),
                 ),
                 items: allStations.map((station) {
                   return DropdownMenuItem(
                     value: station,
                     child: Text(
                       station,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: appTextStyle16(fontWeight: FontWeight.w500),
                     ),
                   );
                 }).toList(),
@@ -447,10 +443,9 @@ class _FareCalculatorScreenState extends State<FareCalculatorScreen> {
             SizedBox(width: 12),
             Text(
               'Calculate Fare',
-              style: TextStyle(
-                fontSize: 16,
+              style: appTextStyle16(
                 fontWeight: FontWeight.w600,
-                color: Colors.white,
+                fontColor: Colors.white,
               ),
             ),
           ],
@@ -479,7 +474,7 @@ class _FareCalculatorScreenState extends State<FareCalculatorScreen> {
                   quarterTurns: -1,
                   child: Text(
                     "TICKET",
-                    style: TextStyle(
+                    style: GoogleFonts.nunito(
                       fontSize: 21,
                       fontWeight: FontWeight.bold,
                       color: Colors.white54,

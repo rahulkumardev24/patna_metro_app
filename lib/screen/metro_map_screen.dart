@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:patna_metro/utils/app_color.dart';
+import 'package:patna_metro/utils/app_text_style.dart';
 import 'package:photo_view/photo_view.dart';
 
 class MetroMapScreen extends StatelessWidget {
@@ -51,12 +52,12 @@ class MetroMapScreen extends StatelessWidget {
               SizedBox(height: 16),
               Text(
                 'Map image not found',
-                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                style: appTextStyle16( fontColor: Colors.grey.shade600),
               ),
               SizedBox(height: 8),
               Text(
                 'Please check if the image exists at: $imagePath',
-                style: TextStyle(fontSize: 12, color: Colors.grey[500]),
+                style: appTextStyle14( fontColor: Colors.grey.shade500),
                 textAlign: TextAlign.center,
               ),
             ],

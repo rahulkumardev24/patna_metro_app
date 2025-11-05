@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:patna_metro/utils/app_text_style.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EmergencyContactsScreen extends StatefulWidget {
   const EmergencyContactsScreen({super.key});
 
   @override
-  State<EmergencyContactsScreen> createState() => _EmergencyContactsScreenState();
+  State<EmergencyContactsScreen> createState() =>
+      _EmergencyContactsScreenState();
 }
 
 class _EmergencyContactsScreenState extends State<EmergencyContactsScreen> {
@@ -59,9 +61,9 @@ class _EmergencyContactsScreenState extends State<EmergencyContactsScreen> {
     if (await canLaunchUrl(url)) {
       await launchUrl(url);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not launch $number')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Could not launch $number')));
     }
   }
 
@@ -69,9 +71,12 @@ class _EmergencyContactsScreenState extends State<EmergencyContactsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Emergency Contacts',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: appTextStyle16(
+            fontColor: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
         flexibleSpace: Container(
@@ -103,7 +108,7 @@ class _EmergencyContactsScreenState extends State<EmergencyContactsScreen> {
               ),
               title: Text(
                 contact['title'],
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: appTextStyle16(fontWeight: FontWeight.bold),
               ),
               subtitle: Text(contact['subtitle']),
               trailing: IconButton(
@@ -117,10 +122,13 @@ class _EmergencyContactsScreenState extends State<EmergencyContactsScreen> {
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(12),
         color: Colors.red.shade50,
-        child: const Text(
+        child: Text(
           '⚠️ In case of emergency, contact the nearest metro staff or use station intercom.',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
+          style: appTextStyle14(
+            fontColor: Colors.red,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );
